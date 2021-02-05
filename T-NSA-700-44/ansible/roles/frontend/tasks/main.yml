@@ -1,0 +1,6 @@
+---
+# SETUP NodeJS, NPM & ANGULAR
+- include_tasks: setup.yml
+
+# LAUNCH app
+- include_tasks: launch.yml

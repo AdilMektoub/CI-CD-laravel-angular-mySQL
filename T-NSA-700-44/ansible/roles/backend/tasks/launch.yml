@@ -1,0 +1,38 @@
+---
+- name: Unzip the backend file
+  unarchive:
+    src: "backend.zip"
+    dest: "~/"
+    creates: "~/back/package.json"
+  register: unarchive
+
+- name: Set env file
+  template:
+    src: ".env.j2"
+    dest: "~/back/.env"
+    owner: root
+    group: root
+
+- name: Install Node package with Yarn
+  yarn:
+    path: "~/back"
+    state: present
+  changed_when: "unarchive.changed == true"
+
+- name: Install Composer's Dependencies
+  composer:
+    working_dir: "~/back"
+    no_dev: no
+  environment:
+    COMPOSER_ALLOW_SUPERUSER: 1
+
+- name: Migrating DB
+  shell: "php ~/back/artisan migrate --force"
+  changed_when: "unarchive changed == true"
+
+- name: Copy backend service file LAUNCH SERVICE
+  copy:
+    src: "backend.service"
+    dest: "/lib/systemd/system/backend.service"
+  notify:
+  - start-backend

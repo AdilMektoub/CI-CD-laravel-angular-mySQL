@@ -1,0 +1,12 @@
+[Unit]
+Description=Backend Laravel project
+After=network.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/bin/npm start --prefix /root/back
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,12 @@
+[Unit]
+Description=Frontend Angular project
+After=network.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/bin/npm start --prefix /root/front
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,6 @@
+---
+# COMPOSER & util packages setup
+- include_tasks: setup.yml
+
+# UNZIP the backend, install dependencies and launch
+- include_tasks: launch.yml

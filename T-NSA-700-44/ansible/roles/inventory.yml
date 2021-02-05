@@ -1,0 +1,15 @@
+all:
+  vars:
+    ansible_connection: ssh
+    ansible_user: "{{SSH_USER}}"
+    ansible_ssh_pass: "{{SSH_PASSWORD}}"
+  children:
+    bdd:
+      hosts:
+        192.168.5.6:
+    frontend:
+      hosts:
+        192.168.5.3:
+    backend:
+      hosts:
+        192.168.5.7:        

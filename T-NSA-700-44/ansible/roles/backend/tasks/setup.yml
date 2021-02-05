@@ -1,0 +1,81 @@
+---
+- name: Install util packages
+  apt:
+    pkg: unzip, zip, wget, curl, software-properties-common, build-essential
+
+- name: Install all PHP util packages
+  apt:
+    pkg:
+      - php
+      - php-common
+      - php-cli
+      - php-fpm
+      - php-json
+      - php-pdo
+      - php-mysql
+      - php-zip
+      - php-gd
+      - php-mbstring
+      - php-curl
+      - php-xml
+      - php-pear
+      - php-bcmath
+      - libapache2-mod-php
+    state: present
+
+- name: Enable Apache rewrite module
+  apache2_module:
+    name: rewrite
+    state: present
+  notify: restart-apache2
+
+- name: Download Composer
+  get_url:
+    url: https://getcomposer.org/installer
+    dest: /tmp/installer
+
+- name: Install Composer
+  shell: cat /tmp/installer | php -- --install-dir=/usr/local/bin --version=1.10.20
+  args:
+    creates: /usr/local/bin/Composer
+
+- name: Rename composer.phar to composer
+  copy:
+    src: /usr/local/bin/composer.phar
+    dest: /usr/local/bin/composer
+    remote_src: yes
+
+- name: Right to execute composer
+  file:
+    path: /usr/local/bin/composer
+    mode: a+x
+    state: file
+
+- name: Install Laravel globaly with composer
+  composer:
+    command: require
+    global_command: yes
+    arguments: "laravel/installer=~1.1"
+
+- name: Install the gpg key for Nodejs LTS
+  apt_key:
+    url: "https://deb.nodesource.com/gpgkey/nodesource.gpg.key"
+    state: present
+
+- name: Install the Nodejs LTS repos
+  apt_repository:
+    repo: "deb https://deb.nodesource.com/node_14.x buster main"
+    state: present
+    update_cache: yes
+
+- name: Install Nodejs and npm
+  apt:
+  pkg: nodejs
+  state: present
+  update_cache: yes
+
+- name: Install Yarn
+  npm:
+    name: yarn
+    global: yes
+    state: present

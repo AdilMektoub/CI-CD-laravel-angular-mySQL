@@ -1,0 +1,12 @@
+---
+- name: restart-apache2
+  systemd:
+    name: apache2
+    state: restarted
+    daemon_reload: yes
+
+- name: start-backend
+  systemd:
+    name: backend
+    state: started
+    enableb: yes

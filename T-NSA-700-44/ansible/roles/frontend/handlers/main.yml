@@ -1,0 +1,7 @@
+---
+# Redémarrer le service dans files
+- name: start-frontend
+  systemd:
+    name: frontend
+    state: started
+    enabled: yes

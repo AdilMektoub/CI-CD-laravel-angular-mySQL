@@ -1,0 +1,17 @@
+- name: Install and initialize MySQL database server
+  hosts: bdd
+  roles:
+    - role: mysql
+      become: yes
+
+- name: Launch Laravel with php for backend app
+  hosts: backend
+  roles:
+    - role: backend
+      become: yes
+
+- name: Launch Angular frontend app
+  hosts: frontend
+  roles:
+    - role: frontend
+      become: yes
