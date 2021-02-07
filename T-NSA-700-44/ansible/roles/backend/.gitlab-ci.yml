@@ -1,0 +1,35 @@
+image: php:7.1
+
+
+
+before_script:
+  - sudo curl --silent --show-error https://getcomposer.org/installer | php
+  - sudo php composer.phar self-update --1 
+  - sudo php composer.phar install
+  - sudo php artisan key:generate
+  - sudo php artisan config:cache
+  - sudo php artisan cache:clear
+
+ 
+
+stages:
+  - test
+  - deploy
+
+ 
+
+test_back:
+  stage: test
+  script:
+    - echo "Test back"
+    - vendor/bin/phpunit
+
+ 
+
+deploy_back:
+  stage: deploy
+  script:
+    - echo "Deploy backend"
+    - sudo apt-get -y install ansible python-pip rsync
+    - sudo pip install 'ansible==2.2.1.0'
+    - sudo ansible-playbook ansible-playbook -i inventory.yml playbook.yml

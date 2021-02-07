@@ -1,0 +1,5 @@
+- name: Launch Angular frontend app
+  hosts: frontend
+  roles:
+    - role: frontend
+      become: yes

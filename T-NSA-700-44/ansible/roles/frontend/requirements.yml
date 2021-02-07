@@ -1,0 +1,4 @@
+- src: https://gitlab.com/pipeline8/ansible-role-frontend.git
+  name: frontend
+  version: master
+  scm: git

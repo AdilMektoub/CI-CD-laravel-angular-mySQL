@@ -1,53 +1,56 @@
 stages:
-- build
-- test
-- deploy
+  - build
+  - test
+  - deploy
 
  
 
 default:
-image: node:latest
+  image: node:latest
 
  
 
 variables:
-CHROME_BIN: /usr/bin/chromium
+  CHROME_BIN: /usr/bin/chromium
 
  
 
 cache:
-key: ${CI_COMMIT_REF_SLUG}
-paths:
-- node_modules/
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - node_modules/
 
  
 
 before_script:
-- apt-get update -qq
-- apt-get install -yqq chromium
-- npm install -g --quiet --no-fund @angular/cli
-- npm update --quiet --no-fund --no-audit
-- npm install --quiet --no-fund --no-audit
-
+  - apt-get update -qq
+  - apt-get install -yqq chromium
+  - npm install -g --quiet --no-fund @angular/cli
+  - npm update --quiet --no-fund --no-audit
+  - npm install --quiet --no-fund --no-audit
+    
 build:
-stage: build
-script:
-- npm run --quiet build
-artifacts:
-paths:
-- dist/
+  stage: build
+  script:
+    - npm run --quiet build
+  artifacts:
+    paths:
+      - dist/
 
  
 
 test:
-stage: test
-script:
-- npm test --quiet
+  stage: test
+  script:
+    - npm test --quiet
 
  
 
 deploy:
-stage: deploy
-script:
-- echo "Hello, World!"
-when: manual
+  stage: deploy
+  script:
+    - echo "Deploy Frontend"
+    - sudo apt-get -y install ansible python-pip rsync
+    - sudo pip install 'ansible==2.2.1.0'
+    - sudo ansible-playbook ansible-playbook -i inventory.yml playbook.yml
+  when: manual

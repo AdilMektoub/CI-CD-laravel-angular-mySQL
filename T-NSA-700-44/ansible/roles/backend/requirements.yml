@@ -1,0 +1,9 @@
+- src: https://gitlab.com/pipeline8/ansible-role-mysql.git
+  name: mysql
+  version: master
+  scm: git
+
+- src: https://gitlab.com/pipeline8/ansible-role-backend.git
+  name: backend
+  version: master
+  scm: git
