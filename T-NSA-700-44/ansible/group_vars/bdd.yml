@@ -79,7 +79,7 @@ mysql_config_include_files: []
 #  - { src: path/relative/to/playbook/anotherfile.cnf, force: yes }
 
 # Databases crée ta BD
-mysql_databases: []
+mysql_databases:
   - name: NSA
     collation: utf8_general_ci
     encoding: utf8
@@ -87,7 +87,7 @@ mysql_databases: []
 
 # Users METTRE '%' car tu crée 2 users différents avec le même nom mais des HOSTS DIFFERENT
 # CAR sinon tu ne pas te connecté de l'extérieur de la VM
-mysql_users: []
+mysql_users:
   - name: NSA
     host: localhost
     password: NSA
@@ -95,7 +95,7 @@ mysql_users: []
   - name: NSA
     host: '%'
     password: NSA
-    priv: "NSA,*:ALL"
+    priv: "NSA.*:ALL"
 
 # Replication settings (replication is only enabled if master/user have values).
 mysql_server_id: "1"
