@@ -1,0 +1,53 @@
+stages:
+- build
+- test
+- deploy
+
+ 
+
+default:
+image: node:latest
+
+ 
+
+variables:
+CHROME_BIN: /usr/bin/chromium
+
+ 
+
+cache:
+key: ${CI_COMMIT_REF_SLUG}
+paths:
+- node_modules/
+
+ 
+
+before_script:
+- apt-get update -qq
+- apt-get install -yqq chromium
+- npm install -g --quiet --no-fund @angular/cli
+- npm update --quiet --no-fund --no-audit
+- npm install --quiet --no-fund --no-audit
+
+build:
+stage: build
+script:
+- npm run --quiet build
+artifacts:
+paths:
+- dist/
+
+ 
+
+test:
+stage: test
+script:
+- npm test --quiet
+
+ 
+
+deploy:
+stage: deploy
+script:
+- echo "Hello, World!"
+when: manual
