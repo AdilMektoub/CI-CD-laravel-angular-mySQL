@@ -68,11 +68,11 @@
     state: present
     update_cache: yes
 
-- name: Install Nodejs and npm
+- name: Install nodejs and npm
   apt:
-  pkg: nodejs
-  state: present
-  update_cache: yes
+    pkg: nodejs
+    state: present
+    update_cache: yes
 
 - name: Install Yarn
   npm:

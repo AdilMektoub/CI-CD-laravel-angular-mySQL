@@ -8,6 +8,8 @@ sudo apt install vagrant
 
 sudo apt install virtualbox-qt
 
+sudo apt-get install sshpass
+
 cd T-NSA-700-44/vagrant
 
 

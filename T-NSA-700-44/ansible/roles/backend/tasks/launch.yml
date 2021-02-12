@@ -28,11 +28,11 @@
 
 - name: Migrating DB
   shell: "php ~/back/artisan migrate --force"
-  changed_when: "unarchive changed == true"
+  changed_when: "unarchive.changed == true"
 
-- name: Copy backend service file LAUNCH SERVICE
+- name: Copy backend service file launch service
   copy:
     src: "backend.service"
     dest: "/lib/systemd/system/backend.service"
   notify:
-  - start-backend
+    - start-backend

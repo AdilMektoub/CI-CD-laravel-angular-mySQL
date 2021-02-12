@@ -17,9 +17,9 @@
 
 - name: Install NodeJS et npm
   apt:
-  pkg: nodejs
-  state: present
-  update_cache: yes
+    pkg: nodejs
+    state: present
+    update_cache: yes
 
 - name: Install Angular.js
   npm:
