@@ -13,7 +13,7 @@ sudo apt-get install sshpass
 cd T-NSA-700-44/vagrant
 
 
-# création des VMS Debian les meilleurs après RedHat
+# création des VMS Debian
 
 vagrant up
 
